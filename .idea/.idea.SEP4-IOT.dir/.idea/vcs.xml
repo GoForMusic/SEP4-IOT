@@ -2,8 +2,5 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/4thSemProject" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/4thSemProject/FreeRTOS" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/4thSemProject/drivers" vcs="Git" />
   </component>
 </project>
