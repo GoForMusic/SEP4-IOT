@@ -1,6 +1,7 @@
 #include <lora_driver.h>
 #include <stdint.h>
 #include <ATMEGA_FreeRTOS.h>
+#include "UpLinkHandler.h"
 
 //for OTAA
 #define LORA_APP_EUI "F0F0F0F0F0F0F0F0"; //the application EUI
@@ -109,7 +110,7 @@ void UplinkHandlerTask(void *pvParameters)
     vTaskDelete(NULL); // Delete task
 }
 
-void UplinkHandler_createTask(); // Create task for UplinkHandler
+void UplinkHandler_createTask() // Create task for UplinkHandler
 {
     //create task
     xTaskCreate(UplinkHandler, "UplinkHandler", 100, NULL, 1, NULL);
