@@ -10,38 +10,47 @@
 
 
 uint16_t co2Ppm;
-uint16_t humidityX10Percent;
-uint16_t temperatureX10C;
+uint16_t humidity;
+uint16_t temperature;
 
 
-void setCos2Ppm(uint16_t _co2Ppm)
+void setCos2Ppm(uint16_t _co2Ppm) // setter for co2
 {
 	co2Ppm=_co2Ppm;
 
 }
 
-void setHumidityX10Percent(uint16_t _humidityX10Percent)
+void setHumidity(uint16_t _humidity) // setter for humidity
 {
-	humidityX10Percent=_humidityX10Percent;
+	humidity=_humidity;
 
 }
 
-void setTemperatureX10C(uint16_t _temperatureX10C)
+void setTemperature(uint16_t _temperatureX10C) // setter for temperature
 {
-	temperatureX10C=_temperatureX10C;
+	temperature=_temperature;
 
 }
 
 lora_driver_payload_t getLoRaPayload(uint16_t port_no)
 {
-	lora_driver_payload_t payload;
-	payload.len = 6;
-	payload.portNo = port_no;
-	payload.bytes[0] = humidityX10Percent >> 8;
-	payload.bytes[1] = humidityX10Percent & 0xFF;
-	payload.bytes[2] = temperatureX10C >> 8;
-	payload.bytes[3] = temperatureX10C & 0xFF;
-	payload.bytes[4] = co2Ppm >> 8;
-	payload.bytes[5] = co2Ppm & 0xFF;
-	return payload;
+	lora_driver_payload_t* payload; // create a payload
+	payload = pvPortMalloc(sizeof(lora_driver_payload_t)); // allocate memory for the payload
+	if(payload == NULL) // if the allocation failed
+    {
+        printf("\nFailed to allocate memory for payload\n");
+    }
+	else 
+	{
+		payload->portNo=port_No; // set the port number
+		payload->len=6;	// set the length of the payload
+		payload->bytes[0]=co2Ppm >> 8; // set the first byte of the payload to the first byte of the co2 value
+		payload->bytes[1]=co2Ppm & 0xFF; // set the second byte of the payload to the second byte of the co2 value
+		payload->bytes[2]=humidity >> 8; // set the third byte of the payload to the first byte of the humidity value
+		payload->bytes[3]=humidity & 0xFF; // set the fourth byte of the payload to the second byte of the humidity value
+		payload->bytes[4]=temperature >> 8; // set the fifth byte of the payload to the first byte of the temperature value
+		payload->bytes[5]=temperature & 0xFF;// set the sixth byte of the payload to the second byte of the temperature value
+			
+	}
+	return *payload; // return the payload
 }
