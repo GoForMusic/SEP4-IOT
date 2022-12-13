@@ -1,4 +1,4 @@
-﻿//A class that handles temperature and humidity measuring.
+﻿
 
 #include "TemperatureHumiditySensor.h"
 
@@ -18,21 +18,16 @@ uint16_t getTemperature()
 	return temperature;
 }
 
-/*
-A function that initializes the temp and hum driver and creates temperature and humidity task.
-*/
-void create(UBaseType_t Taskpriority)
+
+void create(UBaseType_t Taskpriority) // Create task
 {
 	initializeTempAndHumDriver();
 	createTempAndHumTask(Taskpriority);
 	
 }
 
-/*
-A function that initializes temperature and humidity driver and depending on the response of the driver
-returns a code.
-*/
-void initializeTempAndHumDriver()
+
+void initializeTempAndHumDriver() // initialise the sensor
 {
 	hih8120_driverReturnCode_t returnCode = hih8120_initialise();
 
@@ -42,14 +37,12 @@ void initializeTempAndHumDriver()
 	}
 	
 	else {
-		printf("TEMP AND HUM OUT OF HEAP \n");
+		printf("Temp and hum out of heap \n");
 	}
 }
 
-/*
-A function that wakes up the driver and measures temperature and humidity.
-*/
-void measureTempAndHum()
+
+void measureTempAndHum() // wake up and measure
 {
 	if ( HIH8120_OK != hih8120_wakeup() )
 	{
@@ -67,9 +60,8 @@ void measureTempAndHum()
 }
 
 /*
- A function, that waits until Application asks for measurements through event group,
- When the measurements are needed, the measure function is called, temperature and humidity,
- are measured and temperature and humidty are set to those measurements. 
+ A function that waits until the application requests measures through an event group. 
+When the measure function is called and measurements are required, temperature and humidity are measured and set to those values.
 */
 void TempAndHumTask(void* pvpParameter)
 {
@@ -81,8 +73,8 @@ void TempAndHumTask(void* pvpParameter)
 		{
 			puts("Measuring metrics...");
 			measureTempAndHum();
-			temperature = hih8120_getTemperature_x10();
-			humidity = hih8120_getHumidityPercent_x10();
+			temperature = hih8120_getTemperature();
+			humidity = hih8120_getHumidityPercent();
 			xEventGroupSetBits(dataReadyEventGroup,HUMIDITY_TEMPERATURE_READY_BIT);
 		}
 		vTaskDelay(pdMS_TO_TICKS(10));
@@ -92,12 +84,12 @@ void TempAndHumTask(void* pvpParameter)
 // A function that creates temperature and humidity task.
 void createTempAndHumTask(UBaseType_t Taskpriority)
 {
-	initializeTempAndHumDriver();
-	xTaskCreate(
-	TempAndHumTask
-	,  "TempAndHumTask"
-	,  configMINIMAL_STACK_SIZE
-	,  NULL
-	,  tskIDLE_PRIORITY + Taskpriority
-	,  NULL );
+	initializeTempAndHumDriver(); // initialize the sensor
+	xTaskCreate( 
+	TempAndHumTask // Task function
+	,  "TempAndHumTask" // Task name
+	,  configMINIMAL_STACK_SIZE // Stack size
+	,  NULL // Parameter
+	,  tskIDLE_PRIORITY + Taskpriority // Priority
+	,  NULL ); // Task handle
 }

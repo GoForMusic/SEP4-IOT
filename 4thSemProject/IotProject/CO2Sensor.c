@@ -11,27 +11,27 @@ void initializeCo2Driver(){
 	mh_z19_injectCallBack(myCo2CallBack);
 }
 
-//Task for handling measurements when Application asks
-void Co2Task(void* pvpParameter){
+
+void Co2Task(void* pvpParameter) 
+{
 	while(1){
 		
-		//EventGroup waits until Application sends MEASURE_BIT and tells each of the sensors to start measuring the metrics
-		EventBits_t eventBits = xEventGroupWaitBits(measureEventGroup,CO2_MEASURE_BIT,pdTRUE,pdTRUE,portMAX_DELAY);
 		
-		//Verifies if the MEASURE_BIT has CO2_MEASURE_BIT included
-		if(eventBits & (CO2_MEASURE_BIT)){
+		EventBits_t eventBits = xEventGroupWaitBits(measureEventGroup,CO2_MEASURE_BIT,pdTRUE,pdTRUE,portMAX_DELAY); // wait for Application to set MEASURE_BIT and tells each of the sensors to start measuring
+		
+		
+		if(eventBits & (CO2_MEASURE_BIT)) //if MEASURE_BIT has CO2_MEASURE_BIT
+			{
 			printf("Measuring CO2... \n");
 			
-			//If yes, then the driver starts measuring the CO2
-			measureCo2();
 			
-			/*Event Group sets the CO2_READY_BIT - When all 'SENSOR'_READY_BIT's are set, 
-			then the application sets the metrics and sends the payload_package.*/
-			//***See Application class***
-			xEventGroupSetBits(dataReadyEventGroup,CO2_READY_BIT);
+			measureCo2(); //measure CO2
+			}
 			
-			//Task is delayed with 10 milliseconds.
-			vTaskDelay(pdMS_TO_TICKS(10));
+			
+			xEventGroupSetBits(dataReadyEventGroup,CO2_READY_BIT); //set CO2_READY_BIT to dataReadyEventGroup
+		
+			vTaskDelay(pdMS_TO_TICKS(10)); //delay for 10ms
 		}
 	}
 }
