@@ -42,21 +42,21 @@ void initializeTempAndHumDriver() // initialise the sensor
 }
 
 
-void measureTempAndHum() // wake up and measure
+void measureTempAndHum() // wake up 
 {
 	if ( HIH8120_OK != hih8120_wakeup() )
 	{
-		printf("TEMP AND HUM WAKE UP WENT WRONG\n");
+		printf("Something went wrong\n");
 	}
 	
-	vTaskDelay(pdMS_TO_TICKS(50));
+	vTaskDelay(pdMS_TO_TICKS(50)); // wait for sensor to wake up
 	
 	if ( HIH8120_OK !=  hih8120_measure() )
 	{
-		printf("TEMP AND HUM MEASURING UP WENT WRONG\n");
+		printf("Something went wrong\n");
 	}
 	
-	vTaskDelay(pdMS_TO_TICKS(20));
+	vTaskDelay(pdMS_TO_TICKS(20)); // wait for measurement to complete
 }
 
 /*

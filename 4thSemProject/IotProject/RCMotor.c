@@ -18,7 +18,7 @@ void closeBox() // close the box
   isOpen = 0; // set the state of the box to closed
 }
 
-void boxControllerTask(void *pvParameters) // the task that controls the box
+void boxControllerTask(void *pvParameter) // the task that controls the box
 {
   for(;;)
   {

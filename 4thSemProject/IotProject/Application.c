@@ -41,7 +41,7 @@ void createApplicationTask(UBaseType_t Taskpriority)
 {
 	xTaskCreate(
 	ApplicationTask	//method
-	,  "AppTask" //Name of method
+	,  "AppTask" //Name of methodx
 	,  configMINIMAL_STACK_SIZE	//The size of the stack to configurate the method
 	,  NULL // (void *pvParameters)
 	,  tskIDLE_PRIORITY + Taskpriority //the priority of the task
