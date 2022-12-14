@@ -15,5 +15,5 @@ int isOpen;
 void createBoxController();
 void openBox();
 void closeBox();
-void boxControllerTask(void *pvParameters);
+void boxControllerTask(void *pvParameter);
 void createBoxControllerTask(UBaseType_t uxPriority);
