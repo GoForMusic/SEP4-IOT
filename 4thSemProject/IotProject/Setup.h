@@ -16,8 +16,7 @@
 extern EventGroupHandle_t measureEventGroup;
 extern EventGroupHandle_t dataReadyEventGroup;
 extern MessageBufferHandle_t upLinkMessageBuffer;
-extern MessageBufferHandle_t downLinkMessageBuffer;
+
 
 void initializeEventGroup();
 void createUpLinkMessageBuffer();
-void createDownLinkMessageBuffer();
