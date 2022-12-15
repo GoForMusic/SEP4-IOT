@@ -27,9 +27,8 @@ void initialise(void) // Initialise
  initializeEventGroup();
  createUpLinkMessageBuffer();
  createDownLinkMessageBuffer();
- createConfiguration();
- //createBoxController();
- //lora_driver_initialise(ser_USART1, downLinkMessageBuffer);
+ 
+
 }
 
 void create_tasks(void) // Create tasks
@@ -38,8 +37,6 @@ void create_tasks(void) // Create tasks
  createCo2Task(1);
  createApplicationTask(2);
  lora_handler_uplink_payload(4);
-// lora_handler_downlink_create(3);
-// createRCMotorTask(2);
  
 }
 
@@ -59,8 +56,8 @@ void initSystem(void)
 int main(void)
 {
  initSystem(); // Initialise system
- printf("\nStarted\n");
- vTaskStartScheduler(); // Start FreeRTOS scheduler. Execution will never return from this function.
+ printf("Started\n");
+ vTaskStartScheduler(); // Start FreeRTOS scheduler. Execution will never leave from here
  while (1)
  {
  }
