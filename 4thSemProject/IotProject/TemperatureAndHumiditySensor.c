@@ -69,8 +69,8 @@ void TempAndHumTask(void* pvpParameter)
 		{
 			puts("Measuring...");
 			measureTempAndHum();
-			temperature = hih8120_getTemperature();
-			humidity = hih8120_getHumidity();
+			temp = hih8120_getTemperature();
+			hum = hih8120_getHumidity();
 			xEventGroupSetBits(dataReadyEventGroup,HUMIDITY_TEMPERATURE_READY_BIT);
 		}
 		vTaskDelay(pdMS_TO_TICKS(50));

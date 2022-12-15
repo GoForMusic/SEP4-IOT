@@ -8,13 +8,12 @@ void ApplicationTask(void *pvParameters)
 		
 		xEventGroupSetBits(measureEventGroup, ALL_MEASURE_BITS); // set all bits in the event group for all tasks to start measuring
 		
-		
 		EventBits_t eventBits = xEventGroupWaitBits(dataReadyEventGroup,ALL_READY_BITS,pdTRUE,pdTRUE,portMAX_DELAY); // wait for all tasks to finish measuring and set their bits in the event group
 		
 		if(eventBits & (ALL_READY_BITS))
 		{
-			printf("\nAll the data has been collected\n");
-			printf("Temperature is: ,\n and humidity is: , \n CO2 is:  \n",getTemperature(),getHumidity(),getCo2());
+			printf("Data is ready");
+			printf("Temperature is: ,\n  humidity is: , \n CO2 is:  \n",getTemperature(),getHumidity(),getCo2());
 			
 			
 			setTemperature(getTemperature());
@@ -41,10 +40,10 @@ void ApplicationTask(void *pvParameters)
 void createApplicationTask(UBaseType_t Taskpriority)
 {
 	xTaskCreate(
-	ApplicationTask	//method
-	,  "AppTask" //Name of method
-	,  configMINIMAL_STACK_SIZE	//The size of the stack to configure the method
-	,  NULL // (void *pvParameters)
-	,  tskIDLE_PRIORITY + Taskpriority //the priority of the task
-	,  NULL ); //No TaskHandle created.
+	ApplicationTask	
+	,  "AppTask" 
+	,  configMINIMAL_STACK_SIZE	
+	,  NULL 
+	,  tskIDLE_PRIORITY + Taskpriority 
+	,  NULL );
 }
