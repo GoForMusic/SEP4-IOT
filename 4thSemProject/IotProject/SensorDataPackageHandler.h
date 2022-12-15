@@ -13,7 +13,7 @@
 #include <lora_driver.h>
 
 
-void setCO2Ppm(uint16_t _co2);
+void setCO2(uint16_t _co2);
 
 void setHumidity(uint16_t _humidity);
 

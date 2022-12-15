@@ -317,6 +317,7 @@
     <Folder Include="FreeRTOS\Example\" />
     <Folder Include="FreeRTOS\FreeRTOSTraceDriver\" />
     <Folder Include="FreeRTOS\src\" />
+    <Folder Include="IotProject\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Debug\4thSemProject.eep">
@@ -403,10 +404,67 @@
     <None Include="FreeRTOS\src\LICENSE.md">
       <SubType>compile</SubType>
     </None>
-    <Compile Include="LoRaWANHandler.c">
+    <Compile Include="IotProject\Application.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="main.c">
+    <Compile Include="IotProject\Application.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="IotProject\CO2Sensor.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="IotProject\CO2Sensor.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="IotProject\Configuration.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="IotProject\Configuration.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="IotProject\DownLinkHandler.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="IotProject\DownLinkHandler.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="IotProject\LoRaWANHandler.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="IotProject\LoRaWANHandler.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="IotProject\main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="IotProject\RCMotor.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="IotProject\RCMotor.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="IotProject\SensorDataPackageHandler.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="IotProject\SensorDataPackageHandler.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="IotProject\Setup.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="IotProject\Setup.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="IotProject\TemperatureAndHumiditySensor.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="IotProject\TemperatureAndHumiditySensor.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="IotProject\UpLinkHandler.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="IotProject\UpLinkHandler.h">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>

@@ -4,7 +4,7 @@ EventGroupHandle_t dataReadyEventGroup;
 MessageBufferHandle_t upLinkMessageBuffer;
 MessageBufferHandle_t downLinkMessageBuffer;
 
-void initializeEventGroup() //Initializing every event group
+void initializeEventGroup() 
 {
     dataReadyEventGroup = xEventGroupCreate();
     measureEventGroup = xEventGroupCreate();
@@ -17,7 +17,7 @@ void createUpLinkMessageBuffer() //Created a buffer for messages so it can be up
 {	
     if(upLinkMessageBuffer == NULL )
     {
-        printf("Not enough heap memory for uplink message buffer");
+        printf("Not enoughp memory to create uplink message buffer");
     }
     else
     {
@@ -25,7 +25,7 @@ void createUpLinkMessageBuffer() //Created a buffer for messages so it can be up
     }
 }
 
-void createDownLinkMessageBuffer() //Created a buffer for messages so it can be received from websockets
+void createDownLinkMessageBuffer() 
 {
     if(downLinkMessageBuffer == NULL )
     {

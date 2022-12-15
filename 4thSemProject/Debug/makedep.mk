@@ -24,7 +24,25 @@ FreeRTOS\src\timers.c
 
 FreeRTOS\src\variantHooks.c
 
-LoRaWANHandler.c
+IotProject\Application.c
 
-main.c
+IotProject\CO2Sensor.c
+
+IotProject\Configuration.c
+
+IotProject\DownLinkHandler.c
+
+IotProject\LoRaWANHandler.c
+
+IotProject\main.c
+
+IotProject\RCMotor.c
+
+IotProject\SensorDataPackageHandler.c
+
+IotProject\Setup.c
+
+IotProject\TemperatureAndHumiditySensor.c
+
+IotProject\UpLinkHandler.c
 

@@ -1,21 +1,20 @@
 ﻿
 
-#include "TemperatureHumiditySensor.h"
+#include "TemperatureAndHumiditySensor.h"
 
-//Initializing temperature and humidity as 0. 
-uint16_t temperature = 0;
-uint16_t humidity = 0;
+uint16_t temp = 0;
+uint16_t hum = 0;
 
-//Getter for humidity.
+
 uint16_t getHumidity()
 {
-	return humidity;
+	return hum;
 }
 
-//Getter for tempearature.
+
 uint16_t getTemperature()
 {
-	return temperature;
+	return temp;
 }
 
 
@@ -29,9 +28,9 @@ void create(UBaseType_t Taskpriority) // Create task
 
 void initializeTempAndHumDriver() // initialise the sensor
 {
-	hih8120_driverReturnCode_t returnCode = hih8120_initialise();
+	
 
-	if ( HIH8120_OK == returnCode )
+	if ( HIH8120_OK == hih8120_initialise() )
 	{
 		printf("Temp and Hum Driver Initialized ok\n");
 	}
@@ -59,10 +58,7 @@ void measureTempAndHum() // wake up
 	vTaskDelay(pdMS_TO_TICKS(20)); // wait for measurement to complete
 }
 
-/*
- A function that waits until the application requests measures through an event group. 
-When the measure function is called and measurements are required, temperature and humidity are measured and set to those values.
-*/
+
 void TempAndHumTask(void* pvpParameter)
 {
 	
@@ -71,17 +67,17 @@ void TempAndHumTask(void* pvpParameter)
 		EventBits_t eventBits = xEventGroupWaitBits(measureEventGroup,HUMIDITY_TEMPERATURE_MEASURE_BIT,pdTRUE,pdTRUE,portMAX_DELAY);
 		if(eventBits & (HUMIDITY_TEMPERATURE_MEASURE_BIT))
 		{
-			puts("Measuring metrics...");
+			puts("Measuring...");
 			measureTempAndHum();
 			temperature = hih8120_getTemperature();
-			humidity = hih8120_getHumidityPercent();
+			humidity = hih8120_getHumidity();
 			xEventGroupSetBits(dataReadyEventGroup,HUMIDITY_TEMPERATURE_READY_BIT);
 		}
-		vTaskDelay(pdMS_TO_TICKS(10));
+		vTaskDelay(pdMS_TO_TICKS(50));
 	}
 }
 
-// A function that creates temperature and humidity task.
+
 void createTempAndHumTask(UBaseType_t Taskpriority)
 {
 	initializeTempAndHumDriver(); // initialize the sensor

@@ -24,7 +24,7 @@ void setHumidity(uint16_t _humidity) // setter for humidity
 	humidity=_humidity;
 }
 
-void setTemperature(uint16_t _temperatureX10C) // setter for temperature
+void setTemperature(uint16_t _temperature) // setter for temperature
 {
 	temperature=_temperature;
 }
@@ -39,7 +39,7 @@ lora_driver_payload_t getLoRaPayload(uint16_t port_no)
     }
 	else 
 	{
-		payload->portNo=port_No; // set the port number
+		
 		payload->len=6;	// set the length of the payload
 		payload->bytes[0]=co2 >> 8; // set the first byte of the payload to the first byte of the co2 value
 		payload->bytes[1]=co2 & 0xFF; // set the second byte of the payload to the second byte of the co2 value

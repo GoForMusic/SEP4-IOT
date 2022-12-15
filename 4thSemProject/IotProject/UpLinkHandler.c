@@ -121,18 +121,7 @@ void UplinkHandler_createTask() // Create task for UplinkHandler
 
 lora_driver_payload_t uplink_payload;
 
-void lora_handler_task( void *pvParameters );
 
-void lora_handler_uplink_payload(UBaseType_t TaskPriority)
-{
-	xTaskCreate(
-	lora_handler_task
-	,  "Uplink_payload_handler_task"  // A name just for humans
-	,  configMINIMAL_STACK_SIZE+200  // This stack size can be checked & adjusted by reading the Stack Highwater
-	,  NULL
-	,  TaskPriority  // Priority, with 3 (configMAX_PRIORITIES - 1) being the highest, and 0 being the lowest.
-	,  NULL );
-}
 
  void _lora_setup(void)
 {
@@ -235,3 +224,15 @@ void lora_handler_task( void *pvParameters )
 		printf("Upload Message >%s<\n", lora_driver_mapReturnCodeToText(lora_driver_sendUploadMessage(false, &uplink_payload)));
 	}
 } 
+
+
+void lora_handler_uplink_payload(UBaseType_t TaskPriority)
+{
+	xTaskCreate(
+	 lora_handler_task // method
+	,  "lora_handler_task"  
+	,  configMINIMAL_STACK_SIZE+200  
+	,  NULL 
+	,  TaskPriority 
+	,  NULL );
+}
