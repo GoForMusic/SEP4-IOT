@@ -23,7 +23,7 @@ void createConfiguration() // function to create the configuration and set bench
 
 uint16_t getCo2BenchMark() // Get CO2 benchmark value
 {
-    return co2Norm;
+    return co2BenchMark;
 }
 uint16_t getTempBenchMark() // get temperature benchmark value
 {

@@ -2,10 +2,9 @@
 
 void myCo2CallBack(uint16_t ppm);
 
-uint16_t co2Ppm = 0;
+uint16_t co2 = 0;
 mh_z19_returnCode_t rc;
 
-//Initializing the CO2 driver to handle measurements
 void initializeCo2Driver(){
 	mh_z19_initialise(ser_USART3);
 	mh_z19_injectCallBack(myCo2CallBack);
@@ -22,43 +21,43 @@ void Co2Task(void* pvpParameter)
 		
 		if(eventBits & (CO2_MEASURE_BIT)) //if MEASURE_BIT has CO2_MEASURE_BIT
 			{
-			printf("Measuring CO2... \n");
+				printf("Measuring CO2... \n");
 			
 			
-			measureCo2(); //measure CO2
+				measureCo2(); //measure CO2
 			}
 			
 			
-			xEventGroupSetBits(dataReadyEventGroup,CO2_READY_BIT); //set CO2_READY_BIT to dataReadyEventGroup
+		xEventGroupSetBits(dataReadyEventGroup,CO2_READY_BIT); //set CO2_READY_BIT to dataReadyEventGroup
 		
-			vTaskDelay(pdMS_TO_TICKS(10)); //delay for 10ms
+		vTaskDelay(pdMS_TO_TICKS(10)); //delay for 10ms
 		}
-	}
+	
 }
 
 //Callback to set the CO2 data
 void myCo2CallBack(uint16_t ppm)
 {
-	co2Ppm = ppm;
+	co2 = ppm;
 }
 
 
 //Gets CO2 data
 uint16_t getCo2(){
-	return co2Ppm;
+	return co2;
 }
 
 
-//Measures the CO2 data
+
 void measureCo2(){
 	
-	//takes a measurement
+	
 	rc = mh_z19_takeMeassuring();
 	
 	//if the measurement went wrong then it prints out an Error Message
 	if (rc != MHZ19_OK)
 	{
-		printf("Something went wrong with CO2 sensor");
+		printf("Something is wrong");
 	}
 	
 	//if not, then it calls "myCo2CallBack" method which is injected 
@@ -68,11 +67,11 @@ void measureCo2(){
 void createCo2Task(UBaseType_t Taskpriority){
 	initializeCo2Driver(); // initializes the CO2 driver
 	xTaskCreate(
-	Co2Task,  //method
-	"Co2Task",	//Name of method
-	configMINIMAL_STACK_SIZE,  //The size of the stack to configurate the method
-	NULL, // (void *pvParameters)
-	tskIDLE_PRIORITY + Taskpriority,  //the priority of the task
-	NULL //No TaskHandle created.
+	Co2Task,  
+	"Co2Task",	
+	configMINIMAL_STACK_SIZE,  
+	NULL, 
+	tskIDLE_PRIORITY + Taskpriority,  
+	NULL 
 	);
 }

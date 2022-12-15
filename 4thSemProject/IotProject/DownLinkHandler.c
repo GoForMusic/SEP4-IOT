@@ -1,11 +1,13 @@
+
+
 #include <stddef.h>
 #include <stdio.h>
 #include <ATMEGA_FreeRTOS.h>
 #include <lora_driver.h>
-#include <config.h>
+#include "Configuration.h"
 #include <rc_servo.h> // Include the servo driver
 
-static TickType_t xLastWakeTime; // The time at which the task was last unblocked.
+//static TickType_t xLastWakeTime; // The time at which the task was last unblocked.
 static const TickType_t xFrequency = pdms_TO_TICKS(DOWNLINK_HANDLER_TASK_DELAY_MS); //pdms_TO_TICKS is a macro that converts milliseconds to ticks 
 
 #define SERVO_PIN 0; // The pin the servo is connected to
@@ -60,3 +62,4 @@ void downLinkHandler_task_create(void)
 {
     xTaskCreate(downLinkHandler_task, "downLinkHandler_task", configMINIMAL_STACK_SIZE, NULL, 1, NULL);
 }
+
